@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import json
 import requests
-import matplotlib
+import pandas as pd
 
 st.title("Weather app 🌥️")
 st.subheader("enter a city name to get the current weather or the forecast ")
@@ -40,6 +40,12 @@ if option == "current Weather ":
             st.write(f'☁️ the wind speed in kph  :{data["current"]["wind_kph"]}')
             st.write(f'☁️ the humidity in that area :{data["current"]["humidity"]}')
             st.write(f"🌎location or the region {data["location"]["region"]}")
+            st.subheader("City on map🗺️")
+            lat =data['location']['lat']
+            lon = data['location']['lon']
+            dix = {"lat":[lat],"lon":[lon]}
+            x = pd.DataFrame(dix)
+            st.map(x)
         else:
             st.error("Enter a proper city name ..................")
 
@@ -69,10 +75,15 @@ if option == "Forecast":
         plt.xlabel('Time')
         plt.ylabel("Temp in celcius")
         plt.title(f"Temperature forecast of {city}")
-
+        
         if st.button("Display Graph"):
 
             st.pyplot(fig)
-
+            st.subheader("City on map🗺️")
+            lat = data['location']['lat']
+            lon = data['location']['lon']
+            dix = {"lat": [lat], "lon": [lon]}
+            x = pd.DataFrame(dix)
+            st.map(x)
     else:
         st.error("Enter a proper city name ..................")

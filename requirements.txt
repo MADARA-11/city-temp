@@ -1,1 +1,3 @@
-import matplotlib
+matplotlib
+streamlit
+requests
